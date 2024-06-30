@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cassert>
+
 #include <ArrayLinkedList.h>
 
 void ArrayLinkedList::link(Node* first, Node* second) {
@@ -10,17 +12,28 @@ void ArrayLinkedList::link(Node* first, Node* second) {
 
 void ArrayLinkedList::set_value(int val, int pos) {
   Node* item = new Node(val, pos);
+  assert(item != nullptr);
 
   if(!head) {
     head = tail = item;
   }
   else {
     Node* cur = head;
-    while(cur != nullptr && cur->position > pos) {
+    while(cur != nullptr && cur->position < pos) {
       cur = cur->next;
     }
-    link(cur->prev, item);
-    link(item, cur);
+    if(cur == nullptr) {
+      link(tail, item);
+      tail = item;
+    }
+    else if(cur == head) {
+      link(item, cur);
+      head = item;
+    }
+    else {
+      link(cur->prev, item);
+      link(item, cur);
+    }
   }
 }
 
@@ -33,6 +46,14 @@ int ArrayLinkedList::get_value(int pos) {
     return cur->value;
   }
   return 0;
+}
+
+void ArrayLinkedList::add(ArrayLinkedList* list) {
+  Node* cur = list->head;
+  Node* temp = head;
+  for(; cur != nullptr; cur = cur->next) {
+    this->set_value(cur->value, cur->position);
+  }
 }
 
 void ArrayLinkedList::print() {
@@ -48,13 +69,14 @@ void ArrayLinkedList::print() {
       ++temp;
     }
     std::cout << cur->value << ' ';
-    temp = flag;
     cur = cur->next;
     if(cur == nullptr) {
       break;
     }
     flag = cur->position;
+    ++temp;
   }
+  std::cout << '\n';
 }
 
 void ArrayLinkedList::print_nonzero() {
