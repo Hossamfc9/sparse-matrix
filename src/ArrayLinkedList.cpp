@@ -53,7 +53,7 @@ void ArrayLinkedList::print() {
     if(cur == nullptr) {
       break;
     }
-    flag = cur->value;
+    flag = cur->position;
   }
 }
 
