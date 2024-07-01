@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+#include <cmath>
 
 #include <ArrayLinkedList.h>
 
@@ -8,6 +9,21 @@ void ArrayLinkedList::link(Node* first, Node* second) {
     first->next = second;
   if(second != nullptr) 
     second->prev = first;
+}
+
+void ArrayLinkedList::set_capacity(int size) {
+  assert(size > length);
+
+  length = size;
+  return;
+}
+
+int ArrayLinkedList::get_capacity() {
+  return length;
+}
+
+int ArrayLinkedList::get_size() {
+  return elem_length;
 }
 
 void ArrayLinkedList::set_value(int val, int pos) {
@@ -26,6 +42,9 @@ void ArrayLinkedList::set_value(int val, int pos) {
       link(tail, item);
       tail = item;
     }
+    else if(cur->position == pos) {
+      cur->value = val;
+    }
     else if(cur == head) {
       link(item, cur);
       head = item;
@@ -35,6 +54,8 @@ void ArrayLinkedList::set_value(int val, int pos) {
       link(item, cur);
     }
   }
+  ++elem_length;
+  length = std::max(length, pos);
 }
 
 int ArrayLinkedList::get_value(int pos) {
@@ -49,6 +70,8 @@ int ArrayLinkedList::get_value(int pos) {
 }
 
 void ArrayLinkedList::add(ArrayLinkedList* list) {
+  assert(this->length == list->length);
+
   Node* cur = list->head;
   Node* temp = head;
   for(; cur != nullptr; cur = cur->next) {
@@ -75,6 +98,10 @@ void ArrayLinkedList::print() {
     }
     flag = cur->position;
     ++temp;
+  }
+  int diff = abs(flag - length);
+  while(diff--) {
+    std::cout << " 0 ";
   }
   std::cout << '\n';
 }
