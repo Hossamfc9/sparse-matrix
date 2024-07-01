@@ -17,7 +17,11 @@ private:
   void link(Node*, Node*);
 
 public:
-  ArrayLinkedList(int size) : length(size) {}
+  ArrayLinkedList(int size) : length(size) {
+    this->head = nullptr;
+    this->tail = nullptr;
+    this->elem_length = 0;
+  }
   ArrayLinkedList() {
     this->head = nullptr;
     this->tail = nullptr;
@@ -26,7 +30,7 @@ public:
   }
 
   ArrayLinkedList(const ArrayLinkedList&) = delete;
-  ArrayLinkedList &operator=(const ArrayLinkedList& temp) = delete;
+  ArrayLinkedList &operator=(const ArrayLinkedList&) = delete;
 
   void set_capacity(int);
 
@@ -37,7 +41,7 @@ public:
   // inserts to linked list according to position
   void set_value(int, int);
 
-  void add(ArrayLinkedList*);
+  void add(const ArrayLinkedList*);
 
   int get_value(int);
 
