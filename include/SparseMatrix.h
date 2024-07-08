@@ -1,8 +1,16 @@
 #include "ArrayLinkedList.h"
+#include <cstdlib>
+
+using namespace std;
 
 struct  matrixNode {
-    Node* head;
+    ArrayLinkedList* list;
     matrixNode* next;
+
+    matrixNode() {
+        list = nullptr;
+        next = nullptr;
+    }
 };
 
 class SparseMatrix : public ArrayLinkedList {
@@ -12,8 +20,10 @@ private:
 
     int mat_length;
 
-    // number of linked lists opened using set.
+    // number of linked lists opened using set function.
     int length;
+
+    matrixNode* nodeTo(size_t);
 public:
     SparseMatrix(int x, int y) : mat_length(x), length(y) {}
     SparseMatrix() {
@@ -24,14 +34,18 @@ public:
     SparseMatrix(const SparseMatrix&) = delete;
     SparseMatrix &operator=(const SparseMatrix&) = delete;
 
-    int get_xcapacity();
+    size_t get_xcapacity();
 
-    int get_ycapacity();
+    size_t get_ycapacity(size_t);
 
+    //   set_value(val, x-axis, y-axis);
     void set_value(int, int, int);
 
-    void set_list(const ArrayLinkedList*);
+    void set_list(const ArrayLinkedList*, size_t);
 
     void add(const SparseMatrix*);
 
+    void print();
+
+    void print_nonzero();
 };

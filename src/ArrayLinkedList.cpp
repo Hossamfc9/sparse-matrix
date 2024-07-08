@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include <cmath>
+#include <cstdlib>
 
 #include <ArrayLinkedList.h>
 
@@ -11,22 +11,22 @@ void ArrayLinkedList::link(Node* first, Node* second) {
     second->prev = first;
 }
 
-void ArrayLinkedList::set_capacity(int size) {
+void ArrayLinkedList::set_capacity(size_t size) {
   assert(size > length);
 
   length = size;
   return;
 }
 
-int ArrayLinkedList::get_capacity() {
+size_t ArrayLinkedList::get_capacity() {
   return length;
 }
 
-int ArrayLinkedList::get_size() {
+size_t ArrayLinkedList::get_size() {
   return elem_length;
 }
 
-void ArrayLinkedList::set_value(int val, int pos) {
+void ArrayLinkedList::set_value(int val, size_t pos) {
   Node* item = new Node(val, pos);
   assert(item != nullptr);
 
@@ -58,7 +58,7 @@ void ArrayLinkedList::set_value(int val, int pos) {
   length = std::max(length, pos);
 }
 
-int ArrayLinkedList::get_value(int pos) {
+int ArrayLinkedList::get_value(size_t pos) {
   Node* cur = head;
   while(cur != nullptr && cur->position < pos) {
     cur = cur->next;
@@ -69,7 +69,7 @@ int ArrayLinkedList::get_value(int pos) {
   return 0;
 }
 
-void ArrayLinkedList::add(ArrayLinkedList* list) {
+void ArrayLinkedList::add(const ArrayLinkedList* list) {
   assert(this->length == list->length);
 
   Node* cur = list->head;

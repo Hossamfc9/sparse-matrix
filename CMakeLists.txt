@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 
-project(ArrayLinkedList)
+project(Matrix)
 
-add_executable(project main.cpp src/ArrayLinkedList.cpp)
-target_include_directories(project PUBLIC include/)
+set(imp_files src/ArrayLinkedList.cpp src/SparseMatrix.cpp)
+
+add_executable(Matrix main.cpp ${imp_files})
+target_include_directories(Matrix PUBLIC include/)

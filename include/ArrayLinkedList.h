@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 struct Node {
   int value;
   int position;
@@ -12,8 +14,8 @@ private:
   Node* head;
   Node* tail;
 
-  int elem_length;
-  int length;
+  size_t elem_length;
+  size_t length;
   void link(Node*, Node*);
 
 public:
@@ -32,18 +34,18 @@ public:
   ArrayLinkedList(const ArrayLinkedList&) = delete;
   ArrayLinkedList &operator=(const ArrayLinkedList&) = delete;
 
-  void set_capacity(int);
+  void set_capacity(size_t);
 
-  int get_capacity();
+  size_t get_capacity();
 
-  int get_size();
+  size_t get_size();
 
   // inserts to linked list according to position
-  void set_value(int, int);
+  void set_value(int, size_t);
 
   void add(const ArrayLinkedList*);
 
-  int get_value(int);
+  int get_value(size_t);
 
   void print();
 
